@@ -1,12 +1,23 @@
-import {Circle, makeScene2D} from '@motion-canvas/2d';
-import {createRef} from '@motion-canvas/core';
+import { Circle, LezerHighlighter, makeScene2D, Txt } from "@motion-canvas/2d";
+import { createRef, waitUntil } from "@motion-canvas/core";
+import { parser as pythonParser } from "@lezer/python";
+import { parser as markdownParser } from "@lezer/markdown";
+import MyStyle from "./Style";
+
+const PythonHightlighter = new LezerHighlighter(pythonParser, MyStyle);
+const MarkdownHightlighter = new LezerHighlighter(markdownParser, MyStyle);
 
 export default makeScene2D(function* (view) {
-  // Create your animations here
+  const hello = createRef<Txt>();
 
-  const circle = createRef<Circle>();
+  view.add(
+    <Txt ref={hello} fontFamily={"Fira Code"} fill={"#f5a97f"} fontSize={100} />
+  );
 
-  view.add(<Circle ref={circle} size={320} fill={'lightseagreen'} />);
+  yield hello().text("Hey Friends 👋");
+  yield* waitUntil("greet");
+  yield* hello().text("Exception Handling", 0.5);
+  yield* waitUntil("welcome");
 
-  yield* circle().scale(2, 2).to(1, 2);
+  yield* hello().opacity(0, 0.5);
 });
