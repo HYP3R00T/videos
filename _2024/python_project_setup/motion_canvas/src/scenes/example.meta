@@ -6,8 +6,12 @@
       "targetTime": 0.9110930869760542
     },
     {
-      "name": "welcome",
-      "targetTime": 1.411093086976054
+      "name": "title",
+      "targetTime": 4.943778535242545
+    },
+    {
+      "name": "the end",
+      "targetTime": 19.428734526383614
     }
   ],
   "seed": 3216869186

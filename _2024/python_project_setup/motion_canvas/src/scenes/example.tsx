@@ -1,23 +1,37 @@
-import { Circle, LezerHighlighter, makeScene2D, Txt } from "@motion-canvas/2d";
-import { createRef, waitUntil } from "@motion-canvas/core";
-import { parser as pythonParser } from "@lezer/python";
-import { parser as markdownParser } from "@lezer/markdown";
-import MyStyle from "./Style";
+import { Circle, Layout, makeScene2D, Rect, Txt } from "@motion-canvas/2d";
+import { all, createRef, tween, waitFor, waitUntil } from "@motion-canvas/core";
+import { Icon } from "@motion-canvas/2d";
+import { Colors } from "@/assets/Colors";
+import { Terminal } from "./Terminal";
 
-const PythonHightlighter = new LezerHighlighter(pythonParser, MyStyle);
-const MarkdownHightlighter = new LezerHighlighter(markdownParser, MyStyle);
+const text_config = {
+  fontFamily: "Fira Code",
+  fill: Colors.Catppuccin.Mocha.Blue,
+  fontSize: 100,
+};
 
 export default makeScene2D(function* (view) {
-  const hello = createRef<Txt>();
-
+  const terminal = createRef<Terminal>();
   view.add(
-    <Txt ref={hello} fontFamily={"Fira Code"} fill={"#f5a97f"} fontSize={100} />
+    <Terminal
+      ref={terminal}
+      defaultTxtProps={{ fontFamily: "Fira Code", fontSize: 30 }}
+      padding={20}
+      prefix={">> "}
+    />
   );
 
-  yield hello().text("Hey Friends 👋");
-  yield* waitUntil("greet");
-  yield* hello().text("Exception Handling", 0.5);
-  yield* waitUntil("welcome");
-
-  yield* hello().opacity(0, 0.5);
+  yield* terminal().typeLine("npm init @motion-canvas@latest", 2);
+  yield* waitFor(1);
+  terminal().lineAppear("");
+  terminal().lineAppear("Need to install the following packages:");
+  terminal().lineAppear("  @motion-canvas/create");
+  terminal().lineAppear("Ok to proceed? (y)");
+  yield* waitFor(1);
+  yield* terminal().typeAfterLine(" y", 1);
+  terminal().lineAppear([
+    { text: "? Project name " },
+    { text: "»", fill: Colors.Catppuccin.Mocha.Surface2 },
+  ]);
+  yield* waitFor(1);
 });

@@ -1,0 +1,26 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "greet",
+      "targetTime": 0.8706097507406264
+    },
+    {
+      "name": "title",
+      "targetTime": 16.902571447139156
+    },
+    {
+      "name": "python",
+      "targetTime": 20.808450459103806
+    },
+    {
+      "name": "official python",
+      "targetTime": 26.660661654231525
+    },
+    {
+      "name": "the end",
+      "targetTime": 48.352093471493674
+    }
+  ],
+  "seed": 338040807
+}
